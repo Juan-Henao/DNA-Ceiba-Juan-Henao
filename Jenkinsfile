@@ -38,7 +38,7 @@ pipeline {
         stage('Compile & Unit Tests') {
             steps{
 		echo "------------>Compile project<------------"
-		sh 'gradle --b ./microservicio/build.gradle clean'
+		sh 'gradle --b ./microservicio/build.gradle compileJava'
 		
 		    echo "------------>Unit Tests<------------"
 		sh 'gradle --b ./microservicio/build.gradle test'
