@@ -13,7 +13,8 @@ pipeline {
     //Una sección que define las herramientas “preinstaladas” en Jenkins
     tools {
         jdk 'JDK11_Centos' //Preinstalada en la Configuración del Master
-    }
+   	gradle 'Gradle6.0.1_Centos' //Preinstalada en la Configuración del Master
+  }
 
     //Aquí comienzan los “items” del Pipeline
     stages{
@@ -36,15 +37,19 @@ pipeline {
     
         stage('Compile & Unit Tests') {
             steps{
-                echo "------------>Compile & Unit Tests<------------"
-            }
+		echo "------------>Compile project<------------"
+		sh 'gradle --b ./microservicio/build.gradle compileJava'
+		
+       		echo "------------>Unit Tests<------------"
+		sh 'gradle --b ./microservicio/build.gradle test'
+		}
         }
 
         stage('Static Code Analysis') {
             steps{
                 echo '------------>Análisis de código estático<------------'
                 withSonarQubeEnv('Sonar') {
-	        	    sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=./sonar-project.properties"
+	        	    sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
                 }
             }
         }
@@ -52,6 +57,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "------------>Build<------------"
+		sh 'gradle --b ./microservicio/build.gradle build -x test'
             }
         }  
     }
@@ -62,6 +68,7 @@ pipeline {
         }
         success {
             echo 'This will run only if successful'
+		junit 'microservicio/infraestructura/build/test-results/test/*.xml'
         }
         failure {
             echo 'This will run only if failed'
