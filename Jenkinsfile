@@ -36,6 +36,10 @@ pipeline {
     
         stage('Compile & Unit Tests') {
             steps{
+		
+		echo "------------>clean project<------------"
+		sh 'gradle --b /microservicio/build.gradle Clean'
+		    
 		echo "------------>Compile project<------------"
 		sh './gradle --b ./microservicio/build.gradle compileJava'
 		
