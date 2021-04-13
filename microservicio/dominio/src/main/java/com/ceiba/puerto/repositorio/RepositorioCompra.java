@@ -28,26 +28,24 @@ public interface RepositorioCompra {
 	void eliminar(Long id);
 
 	/**
-	 * Permite validar si existe una compra con la fecha de compra, cliente y cristales relacionados
+	 * Permite validar si existe una compra con la fecha de compra, cliente relacionados
 	 * 
 	 * @param fechaCompra
 	 * @param idCliente
-	 * @param idCristal
 	 * @return si existe o no
 	 */
-	boolean existe(LocalDateTime fechaCompra, Long idCliente, Long idCristal);
+	boolean existe(LocalDateTime fechaCompra, Long idCliente);
 	
 	
 	/**
-	 * Permite validar si existe una compra con la fecha de compra, cliente y cristal relacionados
+	 * Permite validar si existe una compra con la fecha de compra, clienterelacionados
 	 * 
 	 * @param id
 	 * @param fechaCompra
 	 * @param idCliente
-	 * @param idCristal
 	 * @return si existe o no
 	 */
-	boolean existeExcluyendoId(Long id, LocalDateTime fechaCompra, Long idCliente, Long idCristal);
+	boolean existeExcluyendoId(Long id, LocalDateTime fechaCompra, Long idCliente);
 	
 	/**
 	 * Permite contar cuantas citas existen por dia

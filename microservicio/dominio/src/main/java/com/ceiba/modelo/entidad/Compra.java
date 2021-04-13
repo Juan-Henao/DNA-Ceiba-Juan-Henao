@@ -2,12 +2,14 @@ package com.ceiba.modelo.entidad;
 
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 
 @Getter
+@Setter
 public class Compra {
 
     private static final String SE_DEBE_INGRESAR_LA_FECHA_COMPRA = "Se debe ingresar la fecha de compra";

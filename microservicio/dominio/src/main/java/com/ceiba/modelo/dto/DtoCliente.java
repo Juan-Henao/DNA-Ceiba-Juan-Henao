@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 public class DtoCliente {
 	
     private Long id;
-    private DtoCompra idCompra;
 	private String nombres;
 	private String apellidos;
 	private String identificacion;

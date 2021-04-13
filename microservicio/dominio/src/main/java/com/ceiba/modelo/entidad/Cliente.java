@@ -15,21 +15,18 @@ public class Cliente {
     private static final String SE_DEBE_INGRESAR_LOS_APELLIDOS_DEL_CLIENTE = "Se debe ingresar los apellidos del cliente";
 	private static final String SE_DEBE_INGRESAR_LA_IDENTIFICACION_DEL_CLIENTE = "Se debe ingresar la identificaci\u00f3n del cliente";
 	private static final String SE_DEBE_INGRESAR_EL_EMAIL = "Se debe ingresar el email del cliente";
-	private static final String SE_DEBE_INGRESAR_LA_COMPRA = "Se debe ingresar la compra del cliente";
 
 
     private Long id;
-    private Long idCompra;
 	private String nombres;
 	private String apellidos;
 	private String identificacion;
 	private String email;
 	private LocalDateTime fechaCreacion;
 
-	public Cliente(Long id, Long idCompra, String nombres, String apellidos, String identificacion, String email,
+	public Cliente(Long id, String nombres, String apellidos, String identificacion, String email,
 			LocalDateTime fechaCreacion) {
 		
-        validarObligatorio(idCompra, SE_DEBE_INGRESAR_LA_COMPRA);
         validarObligatorio(nombres, SE_DEBE_INGRESAR_LOS_NOMBRES_DEL_CLIENTE);
         validarObligatorio(apellidos, SE_DEBE_INGRESAR_LOS_APELLIDOS_DEL_CLIENTE);
         validarObligatorio(fechaCreacion, SE_DEBE_INGRESAR_LA_FECHA_CREACION);
@@ -37,7 +34,6 @@ public class Cliente {
         validarObligatorio(email, SE_DEBE_INGRESAR_EL_EMAIL);
         
         this.id = id;
-		this.idCompra = idCompra;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.identificacion = identificacion;

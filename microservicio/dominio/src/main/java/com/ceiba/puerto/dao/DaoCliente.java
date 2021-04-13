@@ -8,16 +8,16 @@ public interface DaoCliente {
 
     /**
      * Permite listar Clientes
-     * @return los usuarios
+     * @return los Clientes
      */
     List<DtoCliente> listar();
     
 	/**
-	 * Permite obtener un Cliente dado su id
+	 * Permite obtener un Cliente dado su identificacion
 	 * 
 	 * @param id
-	 * @return el paciente
+	 * @return el Cliente
 	 */
-	DtoCliente obtener(Long id);
+	DtoCliente obtener(Long identificacion);
 	
 }

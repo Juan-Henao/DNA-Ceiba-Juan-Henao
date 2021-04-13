@@ -3,9 +3,10 @@ package com.ceiba.modelo.util;
 
 public enum EnumParametro {
 	
-	MONOLÍTICOS,
+	MONOLITICOS,
 	LAMINADOS,
 	DOBLE_ACRISTALAMIENTO,
-	TEMPLADOS;
+	TEMPLADOS,
+	FESTIVOS;
 	
 }

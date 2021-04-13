@@ -11,7 +11,7 @@ public class DtoCompra {
 	
     private Long id;
 	private DtoCliente idCliente;
-    private Long total;
+    private Double total;
 	private LocalDateTime fechaCompra;
 	private LocalDateTime fechaEntrega;
 
