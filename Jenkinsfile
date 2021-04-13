@@ -40,7 +40,7 @@ pipeline {
             steps{
 		
 		echo "------------>clean project<------------"
-		sh 'gradle --b /microservicio/build.gradle Clean'
+		sh 'gradle --b /microservicio/build.gradle clean'
 		    
 		echo "------------>Compile project<------------"
 		sh './gradle --b ./microservicio/build.gradle compileJava'
