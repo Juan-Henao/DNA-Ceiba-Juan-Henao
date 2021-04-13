@@ -33,15 +33,13 @@ pipeline {
                 credentialsId: 'GitHub_juanhenao31', 
                 url:'https://github.com/Juan-Henao/DNA-Ceiba-Juan-Henao']]
                 ])
+		    sh 'gradle --b ./microservicio/build.gradle clean'
             }
         }
     
         stage('Compile & Unit Tests') {
             steps{
-		
-		echo "------------>clean project<------------"
-		sh 'gradle --b ./microservicio/build.gradle clean'
-		    
+			    
 		echo "------------>Compile project<------------"
 		//sh './gradle --b ./microservicio/build.gradle compileJava'
 		
