@@ -18,5 +18,9 @@ public class ManejadorObtenerRol {
 	public DtoRol ejecutar(Long id) {
 		return this.daoRol.obtener(id);
 	}
+	
+	public DtoRol ejecutar(String nombre_rol) {
+		return this.daoRol.obtenerPorNombreRol(nombre_rol);
+	}
 
 }

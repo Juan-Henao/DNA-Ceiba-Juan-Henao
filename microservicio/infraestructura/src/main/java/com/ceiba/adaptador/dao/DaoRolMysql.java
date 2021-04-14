@@ -44,7 +44,7 @@ public class DaoRolMysql implements DaoRol {
 	}
 
 	@Override
-	public DtoRol obtenerPorUsername(String nombre_rol) {
+	public DtoRol obtenerPorNombreRol(String nombre_rol) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("nombre_rol", nombre_rol);
 		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlObtenerPornombre, paramSource, new MapeoRol()).iterator().next();

@@ -60,7 +60,7 @@ public class ServicioCrearCompra {
 	}
 
 	private void asignarRecargoFinDeSemana(Compra compra) {
-		if ( compra.getTotal() != LA_COMPRA_ES_CERO) {
+		if ( compra.getTotal().equals(LA_COMPRA_ES_CERO)) {
 			compra.setTotal(compra.getTotal() + (compra.getTotal() * RECARGO_FIN_DE_SEMANA));
 		}
 

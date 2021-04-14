@@ -26,6 +26,6 @@ public interface DaoRol {
 	 * @param nombre_rol
 	 * @return el usuario
 	 */
-	DtoRol obtenerPorUsername(String nombre_rol);
+	DtoRol obtenerPorNombreRol(String nombre_rol);
 	
 }
