@@ -40,10 +40,10 @@ pipeline {
             steps{
 			    
 		echo "------------>Compile project<------------"
-		sh './gradle --b ./microservicio/build.gradle compileJava'
+		sh 'gradle --b ./microservicio/build.gradle compileJava'
 		
 		    echo "------------>Unit Tests<------------"
-		sh './gradle --b ./microservicio/build.gradle test'
+		sh 'gradle --b ./microservicio/build.gradle test'
 		    
 		}
         }
