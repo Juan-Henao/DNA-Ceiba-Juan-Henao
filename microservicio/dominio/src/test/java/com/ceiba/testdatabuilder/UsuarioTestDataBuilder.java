@@ -12,8 +12,9 @@ public class UsuarioTestDataBuilder {
 	private String username;
 	
     public UsuarioTestDataBuilder() {
-    	username = "1234";
-    	password = "1234";
+    	id = 1L;
+    	username = "12345";
+    	password = "12345";
     	idRol = 1l;
         
     }

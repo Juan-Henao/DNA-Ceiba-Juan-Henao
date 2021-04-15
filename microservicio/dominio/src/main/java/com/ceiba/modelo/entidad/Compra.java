@@ -27,10 +27,11 @@ public class Compra {
 			LocalDateTime fechaEntrega) {
 		
         validarObligatorio(idCliente, SE_DEBE_INGRESAR_EL_CLIENTE);
-        validarObligatorio(total,     SE_DEBE_INGRESAR_EL_PRECIO_TOTAL_COMPRA);
+        validarObligatorio(total,SE_DEBE_INGRESAR_EL_PRECIO_TOTAL_COMPRA);
         validarObligatorio(fechaCompra, SE_DEBE_INGRESAR_LA_FECHA_COMPRA);
         validarObligatorio(fechaEntrega, SE_DEBE_INGRESAR_LA_FECHA_ENTREGA);
 
+        
 		this.id = id;
 		this.idCliente = idCliente;
 		this.total = total;

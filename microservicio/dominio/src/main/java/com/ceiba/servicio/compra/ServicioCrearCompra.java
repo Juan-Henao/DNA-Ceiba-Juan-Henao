@@ -82,6 +82,7 @@ public class ServicioCrearCompra {
 			throw new ExcepcionDiaFestivo(LA_COMPRA_NO_SE_REALIZA_FESTIVO);
 		}
 	}
+	
 
 	private void asignarFechaEntrega(Compra compra) {
 		int cantidadDias = obtenerDiasFechaEntrega();
