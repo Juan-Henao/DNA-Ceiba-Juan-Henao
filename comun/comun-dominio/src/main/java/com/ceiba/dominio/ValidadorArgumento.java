@@ -64,7 +64,7 @@ public class ValidadorArgumento {
     }
 
     public static void validarMayorDouble(Double numeroInicial, Double numeroFinal, String mensaje) {
-        if (numeroFinal > numeroInicial) {
+        if (numeroFinal < numeroInicial) {
             throw new ExcepcionValorInvalido(mensaje);
         }
     }

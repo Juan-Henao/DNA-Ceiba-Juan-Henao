@@ -8,34 +8,37 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
+import com.ceiba.dominio.excepcion.ExcepcionHorarioLaboral;
 import com.ceiba.dominio.excepcion.ExcepcionDiaFestivo;
 import com.ceiba.modelo.dto.DtoParametro;
 import com.ceiba.modelo.entidad.Compra;
+import com.ceiba.modelo.util.EnumParametro;
+import com.ceiba.puerto.dao.DaoParametro;
 import com.ceiba.puerto.repositorio.RepositorioCompra;
 
 public class ServicioCrearCompra {
 
 	private static final String LA_COMPRA_YA_EXISTE_EN_EL_SISTEMA = "la Compra ya existe en el sistema";
 	private static final String LA_COMPRA_NO_SE_REALIZA_FESTIVO = "la Compra no se puede realizar ya que es Festivo";
-	private static final Double LA_COMPRA_ES_CERO = 0.0 ;
-	private static final Double RECARGO_FIN_DE_SEMANA = 0.10 ;
-	private static final int HORA_ENTRADA = 8 ;
-	private static final int HORA_SALIDA = 8 ;
-	private static final int DIAS_MINIMOS_FECHA_COMPRA = 5;
-	private static final int DIAS_MAXIMOS_FECHA_COMPRA = 8;
-	private static final int CONSTANTE_NUMERICA = 1;
+	private static final String EL_HORARIO_DE_LA_COMPRA_NO_VALIDO = "El horario de la compra no es valido";
+
+	private static final Double LA_COMPRA_ES_CERO = 0.0;
+	private static final Double RECARGO_FIN_DE_SEMANA = 0.10;
 
 
 	private final RepositorioCompra repositorioCompra;
+	private final DaoParametro daoParametro;
 
-	public ServicioCrearCompra(RepositorioCompra repositorioCompra) {
+	public ServicioCrearCompra(RepositorioCompra repositorioCompra, DaoParametro daoParametro) {
 		this.repositorioCompra = repositorioCompra;
+		this.daoParametro = daoParametro;
 	}
 
 	public Long ejecutar(Compra compra) {
 		validarExistenciaPrevia(compra);
-	
-		//validarDiaFestivo(compra, null);
+
+		validarDiaFestivo(compra, daoParametro.listarPorEnum(EnumParametro.FESTIVOS));
+
 		validarHorarioHabil(compra);
 		if (verificarFinDeSemana(compra)) {
 			asignarRecargoFinDeSemana(compra);
@@ -46,7 +49,7 @@ public class ServicioCrearCompra {
 
 	private void validarExistenciaPrevia(Compra compra) {
 		boolean existe = this.repositorioCompra.existe(compra.getFechaCompra(), compra.getIdCliente());
-		if(existe) {
+		if (existe) {
 			throw new ExcepcionDuplicidad(LA_COMPRA_YA_EXISTE_EN_EL_SISTEMA);
 		}
 	}
@@ -54,43 +57,50 @@ public class ServicioCrearCompra {
 	private boolean verificarFinDeSemana(Compra compra) {
 
 		Calendar fechaCompraCalendar = Calendar.getInstance();
-		fechaCompraCalendar.setTime(Date.from(compra.getFechaCompra().toLocalDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-		return fechaCompraCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || fechaCompraCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ;
+		fechaCompraCalendar.setTime(Date
+				.from(compra.getFechaCompra().toLocalDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+		return fechaCompraCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+				|| fechaCompraCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
 
 	}
 
 	private void asignarRecargoFinDeSemana(Compra compra) {
-		if ( compra.getTotal().equals(LA_COMPRA_ES_CERO)) {
+		if (compra.getTotal().equals(LA_COMPRA_ES_CERO)) {
 			compra.setTotal(compra.getTotal() + (compra.getTotal() * RECARGO_FIN_DE_SEMANA));
 		}
 
 	}
 
-	private void validarDiaFestivo(Compra compra , List<DtoParametro> ListDtoParametro) {
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	private void validarDiaFestivo(Compra compra, List<DtoParametro> ListDtoParametro) {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 		for (DtoParametro dtoParametro : ListDtoParametro) {
-			if(compra.getFechaCompra().toLocalDate().isEqual(LocalDate.parse(dtoParametro.getValor(), formatter))) {
+			if (compra.getFechaCompra().toLocalDate().isEqual(LocalDate.parse(dtoParametro.getValor(), formatter))) {
 				throw new ExcepcionDiaFestivo(LA_COMPRA_NO_SE_REALIZA_FESTIVO);
 			}
 		}
 	}
 
-	private void validarHorarioHabil(Compra compra ) {
+	private void validarHorarioHabil(Compra compra) {
 
-		if(compra.getFechaCompra().getHour() < HORA_ENTRADA || compra.getFechaCompra().getHour() > HORA_SALIDA ){
-			throw new ExcepcionDiaFestivo(LA_COMPRA_NO_SE_REALIZA_FESTIVO);
+		if (compra.getFechaCompra().getHour() < Integer
+				.parseInt(daoParametro.obtenerPorEnum(EnumParametro.HORA_ENTRADA).getValor())
+				|| compra.getFechaCompra().getHour() > Integer
+						.parseInt(daoParametro.obtenerPorEnum(EnumParametro.HORA_SALIDA).getValor())) {
+			throw new ExcepcionHorarioLaboral(EL_HORARIO_DE_LA_COMPRA_NO_VALIDO);
 		}
 	}
-	
 
 	private void asignarFechaEntrega(Compra compra) {
-		int cantidadDias = obtenerDiasFechaEntrega();
+		int cantidadDias = calcularDiaFechaEntrega();
 		compra.setFechaEntrega(compra.getFechaCompra().plusDays(cantidadDias));
 	}
 
-	private int obtenerDiasFechaEntrega() {
-		return (int)Math.floor(Math.random()*(DIAS_MAXIMOS_FECHA_COMPRA-DIAS_MINIMOS_FECHA_COMPRA+CONSTANTE_NUMERICA)+DIAS_MINIMOS_FECHA_COMPRA);
+	private int calcularDiaFechaEntrega() {
+		return (int) ((Math.random() * (Integer
+				.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA).getValor())
+				 - Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).getValor()))) 
+				+ Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).getValor()));
 	}
 
 }

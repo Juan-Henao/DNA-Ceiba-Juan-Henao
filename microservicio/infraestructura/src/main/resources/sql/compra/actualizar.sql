@@ -2,5 +2,6 @@ update compra
 set idCliente = :idCliente,
 	total = :total,
 		fechaCompra = :fechaCompra,	
-	fechaEntrega = :fechaEntrega
+	fechaEntrega = :fechaEntrega,
+	enumParametro = :enumParametro
 where id = :id

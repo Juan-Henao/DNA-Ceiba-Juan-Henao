@@ -4,5 +4,5 @@ set
 		apellidos = :apellidos,
 		identificacion = :identificacion,
 		email = :email,
-		fechaCreacion = :fechaCreacion
+		fecha_creacion = :fechaCreacion
 where id = :id	

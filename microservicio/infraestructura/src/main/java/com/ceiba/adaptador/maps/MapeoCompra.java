@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import com.ceiba.infraestructura.jdbc.MapperResult;
 import com.ceiba.modelo.dto.DtoCliente;
 import com.ceiba.modelo.dto.DtoCompra;
+import com.ceiba.modelo.util.EnumEstadoCompra;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,8 +20,9 @@ public class MapeoCompra implements RowMapper<DtoCompra>, MapperResult {
 		Double total = resultSet.getDouble("total");
 		LocalDateTime fechaCompra = extraerLocalDateTime(resultSet, "fechaCompra");
 		LocalDateTime fechaEntrega = extraerLocalDateTime(resultSet, "fechaEntrega");
+		EnumEstadoCompra estadoCompra = EnumEstadoCompra.valueOf(resultSet.getString("estadoCompra"));
 
-		return new DtoCompra(id, mapRowCliente(resultSet), total, fechaCompra, fechaEntrega);
+		return new DtoCompra(id, mapRowCliente(resultSet), total, fechaCompra, fechaEntrega, estadoCompra);
 	}
 
 	private DtoCliente mapRowCliente(ResultSet resultSet) throws SQLException {

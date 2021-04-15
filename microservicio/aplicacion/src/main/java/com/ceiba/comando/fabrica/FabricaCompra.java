@@ -9,7 +9,7 @@ public class FabricaCompra {
 
 	public Compra crear(ComandoCompra comandoCompra) {
 		return new Compra(comandoCompra.getId(), comandoCompra.getIdCliente(), comandoCompra.getTotal(),
-				comandoCompra.getFechaCompra(), comandoCompra.getFechaEntrega());
+				comandoCompra.getFechaCompra(), comandoCompra.getFechaEntrega(),comandoCompra.getEstadoCompra());
 
 	}
 

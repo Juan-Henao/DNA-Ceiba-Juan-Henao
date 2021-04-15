@@ -27,6 +27,8 @@ public class DaoParametroMysql implements DaoParametro {
     @SqlStatement(namespace="parametro", value="obtenerPorEnum")
     private static String sqlObtenerPorEnum;
     
+    @SqlStatement(namespace="parametro", value="obtenerListaPorEnum")
+    private static String sqlObtenerListaPorEnum;
     
     public DaoParametroMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
         this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
@@ -49,8 +51,16 @@ public class DaoParametroMysql implements DaoParametro {
 	@Override
 	public DtoParametro obtenerPorEnum(EnumParametro enumParametro) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("enumParametro", enumParametro);
+        paramSource.addValue("enumParametro", enumParametro.toString());
 		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlObtenerPorEnum, paramSource, new MapeoParametro()).iterator().next();
+	}
+
+
+	@Override
+	public List<DtoParametro> listarPorEnum(EnumParametro enumParametro) {
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("enumParametro", enumParametro.toString());
+		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlObtenerListaPorEnum, paramSource, new MapeoParametro());
 	}
 
 

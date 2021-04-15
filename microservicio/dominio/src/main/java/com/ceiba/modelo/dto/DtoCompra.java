@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+import com.ceiba.modelo.util.EnumEstadoCompra;
+
 @Getter
 @AllArgsConstructor
 public class DtoCompra {
@@ -14,5 +16,7 @@ public class DtoCompra {
     private Double total;
 	private LocalDateTime fechaCompra;
 	private LocalDateTime fechaEntrega;
+	private EnumEstadoCompra estadoCompra;
+
 
 }

@@ -27,6 +27,7 @@ CREATE TABLE compra (
     total DOUBLE NOT NULL,
     fechaCompra datetime,
     fechaEntrega datetime,
+    enumParametro varchar(100) NOT NULL,
 	PRIMARY KEY (id),
     FOREIGN KEY (idCliente) REFERENCES cliente(id)
 );

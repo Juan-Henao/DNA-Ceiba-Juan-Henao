@@ -1,1 +1,1 @@
-insert into itemsCompra (cantidad, idCompra,valor,ancho,largo ,fechaCreacion) values (:cantidad, :idCompra,:valor, :ancho,, :largo :fechaCreacion)
+insert into itemsCompra (cantidad, idCompra,valor,ancho,largo ,fechaCreacion) values (:cantidad, :idCompra,:valor, :ancho, :largo, :fechaCreacion)

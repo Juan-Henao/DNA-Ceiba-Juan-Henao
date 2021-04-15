@@ -24,9 +24,16 @@ public interface DaoParametro {
 	
 	/**
 	 * 
-	 * @param username
-	 * @return el usuario
+	 * @param enumParametro
+	 * @return el DtoParametro
 	 */
 	DtoParametro obtenerPorEnum(EnumParametro enumParametro);
+	
+	/**
+	 * Permite listar paramteros dado su enum
+	 * 
+	 * @return los usuarios
+	 */
+	List<DtoParametro> listarPorEnum(EnumParametro enumParametro);
 	
 }
