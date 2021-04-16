@@ -17,11 +17,11 @@ public class ServicioActualizarItemsCompra {
 	private static final String EXCESO_ITEMS_COMPRA = "Exceso en la cantidad de los items de compra";
 	private static final String SOBREPASO_ANCHO_ITEM = "Exceso en el ancho del items de compra";
 	private static final String SOBREPASO_LARGO_ITEM = "Exceso en el largo del items de compra";
-	
+
 	private final RepositorioItemsCompra repositorioItemsCompra;
 	private final DaoParametro daoParametro;
 
-	public ServicioActualizarItemsCompra(RepositorioItemsCompra repositorioItemsCompra,DaoParametro daoParametro) {
+	public ServicioActualizarItemsCompra(RepositorioItemsCompra repositorioItemsCompra, DaoParametro daoParametro) {
 		this.repositorioItemsCompra = repositorioItemsCompra;
 		this.daoParametro = daoParametro;
 	}
@@ -41,34 +41,41 @@ public class ServicioActualizarItemsCompra {
 			throw new ExcepcionDuplicidad(ESTOS_ITEMS_YA_EXISTE_EN_EL_SISTEMA);
 		}
 	}
+
 	private void validarCantidadSolicitada(ItemsCompra itemsCompra) {
 		boolean existe = this.repositorioItemsCompra.existeExcluyendoId(itemsCompra.getId(),
 				itemsCompra.getFechaCreacion(), itemsCompra.getIdCompra());
 		if (existe) {
-		if (itemsCompra.getCantidad().compareTo(Long.parseLong(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor()))
-				> BigDecimal.ZERO.intValue()) {
-			throw new ExcepcionExcesoItems(EXCESO_ITEMS_COMPRA);
-		}}
+			if (itemsCompra.getCantidad().compareTo(Long.parseLong(
+					daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor())) > BigDecimal.ZERO
+							.intValue()) {
+				throw new ExcepcionExcesoItems(EXCESO_ITEMS_COMPRA);
+			}
+		}
 	}
 
 	private void validarAnchoItemsCompra(ItemsCompra itemsCompra) {
 		boolean existe = this.repositorioItemsCompra.existeExcluyendoId(itemsCompra.getId(),
 				itemsCompra.getFechaCreacion(), itemsCompra.getIdCompra());
 		if (existe) {
-		if (itemsCompra.getAncho().compareTo(Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor()))
-				> BigDecimal.ZERO.intValue()) {
-			throw new ExcepcionMaximoAnchoItem(SOBREPASO_ANCHO_ITEM);
-		}}
+			if (itemsCompra.getAncho().compareTo(Double.parseDouble(
+					daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor())) > BigDecimal.ZERO
+							.intValue()) {
+				throw new ExcepcionMaximoAnchoItem(SOBREPASO_ANCHO_ITEM);
+			}
+		}
 	}
-	
+
 	private void validarLargoItemsCompra(ItemsCompra itemsCompra) {
 		boolean existe = this.repositorioItemsCompra.existeExcluyendoId(itemsCompra.getId(),
 				itemsCompra.getFechaCreacion(), itemsCompra.getIdCompra());
 		if (existe) {
-		if (itemsCompra.getLargo().compareTo(Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor()))
-				> BigDecimal.ZERO.intValue()) {
-			throw new ExcepcionMaximoLargoItem(SOBREPASO_LARGO_ITEM);
-		}}
+			if (itemsCompra.getLargo().compareTo(Double.parseDouble(
+					daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor())) > BigDecimal.ZERO
+							.intValue()) {
+				throw new ExcepcionMaximoLargoItem(SOBREPASO_LARGO_ITEM);
+			}
+		}
 	}
 
 }

@@ -19,13 +19,16 @@ public class ServicioActualizarItemsCompraTest {
 
 		RepositorioItemsCompra repositorioItemsCompra = Mockito.mock(RepositorioItemsCompra.class);
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
-		
-		Mockito.when(repositorioItemsCompra.existeExcluyendoId(Mockito.anyLong(), Mockito.any(), Mockito.anyLong())).thenReturn(true);
 
-		ServicioActualizarItemsCompra servicioActualizarItemsCompra = new ServicioActualizarItemsCompra(repositorioItemsCompra,daoParametro);
-		
+		Mockito.when(repositorioItemsCompra.existeExcluyendoId(Mockito.anyLong(), Mockito.any(), Mockito.anyLong()))
+				.thenReturn(true);
+
+		ServicioActualizarItemsCompra servicioActualizarItemsCompra = new ServicioActualizarItemsCompra(
+				repositorioItemsCompra, daoParametro);
+
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioActualizarItemsCompra.ejecutar(itemsCompra), ExcepcionDuplicidad.class,
 				"Estos Items de Compra ya existe en el sistema");
 	}
+
 }

@@ -30,6 +30,11 @@ public class ItemsTestDataBuilder {
 		return this;
 	}
 
+	public ItemsTestDataBuilder conAnchoNoValido(Double ancho) {
+		this.ancho = ancho;
+		return this;
+	}
+	
 	public ItemsCompra build() {
 		return new ItemsCompra(id, ancho, largo, valor, cantidad, fechaCreacion, idCompra);
 
