@@ -1,2 +1,2 @@
-select id,idCliente,total,fechaCompra,fechaEntrega
+select id,idCliente,total,fechaCompra,fechaEntrega,estadoCompra
 from compra

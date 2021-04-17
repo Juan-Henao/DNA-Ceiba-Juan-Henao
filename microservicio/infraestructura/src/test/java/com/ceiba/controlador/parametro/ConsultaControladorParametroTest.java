@@ -23,38 +23,16 @@
 //public class ConsultaControladorParametroTest {
 //
 //    @Autowired
-//    private MockMvc mocMvc;
-
-//    @Test
+//    private MockMvc mocMvc;    @Test
 //    public void listar() throws Exception {
 //        // arrange
 //
 //        // act - assert
-//        mocMvc.perform(get("/rol")
+//        mocMvc.perform(get("/parametro")
 //                .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isOk())
 //                .andExpect(jsonPath("$", hasSize(1)))
-//                .andExpect(jsonPath("$[0].enumParametro", is("test")));
+//                .andExpect(jsonPath("$[0].id", is("1")));
 //    }
 //
-//    @Test
-//    public void obtener() throws Exception {
-//    	Long id = 1L;
-//        mocMvc.perform(get("/rol/{id}", id)
-//        		.contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.enumParametro", is("test")));
-//    }
-//
-//    @Test
-//    public void obtenerPorNombreRol() throws Exception {
-//    	String nombre_rol = "administrador";
-//        mocMvc.perform(get("/rol/only/{nombre_rol}", nombre_rol)
-//        		.contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.enumParametro", is("test")));
-//    }
-    
-
-
 //}

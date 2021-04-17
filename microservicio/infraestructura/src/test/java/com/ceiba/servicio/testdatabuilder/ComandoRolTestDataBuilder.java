@@ -9,7 +9,7 @@ public class ComandoRolTestDataBuilder {
 
 	public ComandoRolTestDataBuilder() {
 
-		nombre_rol = "administrador";
+		nombre_rol = "cajero";
 
 	}
 

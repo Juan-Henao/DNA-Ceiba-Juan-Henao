@@ -5,9 +5,14 @@ import org.mockito.Mockito;
 
 import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
+import com.ceiba.dominio.excepcion.ExcepcionExcesoItems;
+import com.ceiba.dominio.excepcion.ExcepcionMaximoAnchoItem;
+import com.ceiba.dominio.excepcion.ExcepcionMaximoLargoItem;
 import com.ceiba.modelo.entidad.ItemsCompra;
+import com.ceiba.modelo.util.EnumParametro;
 import com.ceiba.puerto.dao.DaoParametro;
 import com.ceiba.puerto.repositorio.RepositorioItemsCompra;
+import com.ceiba.testdatabuilder.DtoParametroTestDataBuilder;
 import com.ceiba.testdatabuilder.ItemsTestDataBuilder;
 
 public class ServicioActualizarItemsCompraTest {
@@ -29,6 +34,79 @@ public class ServicioActualizarItemsCompraTest {
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioActualizarItemsCompra.ejecutar(itemsCompra), ExcepcionDuplicidad.class,
 				"Estos Items de Compra ya existe en el sistema");
+	}
+	
+
+	@Test
+	public void validarCantidadSolicitadaTest() {
+		// arrange
+
+		ItemsCompra itemsCompra = new ItemsTestDataBuilder().conCantidad(15L).build();
+
+		RepositorioItemsCompra repositorioItemsCompra = Mockito.mock(RepositorioItemsCompra.class);
+
+		Mockito.when(repositorioItemsCompra.existeExcluyendoId(Mockito.anyLong(), Mockito.any(), Mockito.anyLong()))
+		.thenReturn(false);
+		
+		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES))
+				.thenReturn(new DtoParametroTestDataBuilder().conValor("10").conEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).build());
+
+		ServicioActualizarItemsCompra servicioActualizarItemsCompra = new ServicioActualizarItemsCompra(repositorioItemsCompra,
+				daoParametro);
+
+		// act - assert
+		BasePrueba.assertThrows(() -> servicioActualizarItemsCompra.ejecutar(itemsCompra), ExcepcionExcesoItems.class,
+				"Exceso en la cantidad de los items de compra");
+	}
+
+	@Test
+	public void validarAnchoItemsCompraTest() {
+		// arrange
+
+		ItemsCompra itemsCompra = new ItemsTestDataBuilder().conAncho(8D).build();
+
+		RepositorioItemsCompra repositorioItemsCompra = Mockito.mock(RepositorioItemsCompra.class);
+
+		Mockito.when(repositorioItemsCompra.existeExcluyendoId(Mockito.anyLong(), Mockito.any(), Mockito.anyLong()))
+		.thenReturn(false);
+		
+		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
+
+		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any()))
+				.thenReturn(new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+
+		ServicioActualizarItemsCompra servicioActualizarItemsCompra = new ServicioActualizarItemsCompra(repositorioItemsCompra,
+				daoParametro);
+
+		// act - assert
+		BasePrueba.assertThrows(() -> servicioActualizarItemsCompra.ejecutar(itemsCompra), ExcepcionMaximoAnchoItem.class,
+				"Exceso en el ancho del items de compra");
+	}
+
+	@Test
+	public void validarLargoItemsCompraTest() {
+		// arrange
+
+		ItemsCompra itemsCompra = new ItemsTestDataBuilder().conLargo(8D).build();
+
+		RepositorioItemsCompra repositorioItemsCompra = Mockito.mock(RepositorioItemsCompra.class);
+
+		Mockito.when(repositorioItemsCompra.existeExcluyendoId(Mockito.anyLong(), Mockito.any(), Mockito.anyLong()))
+		.thenReturn(false);
+		
+		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
+
+		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any()))
+		.thenReturn(new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
+
+		ServicioActualizarItemsCompra servicioActualizarItemsCompra = new ServicioActualizarItemsCompra(repositorioItemsCompra,
+				daoParametro);
+
+		// act - assert
+		BasePrueba.assertThrows(() -> servicioActualizarItemsCompra.ejecutar(itemsCompra), ExcepcionMaximoLargoItem.class,
+				"Exceso en el largo del items de compra");
 	}
 
 }

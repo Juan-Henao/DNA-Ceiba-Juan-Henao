@@ -31,6 +31,11 @@ public class CompraTestDataBuilder {
         this.id = id;
         return this;
     }
+    
+    public CompraTestDataBuilder conFechaCompra(LocalDateTime fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+        return this;
+    }
 
     public Compra build() {
         return new  Compra(id, idCliente, total, fechaCompra, fechaEntrega, estadoCompra);

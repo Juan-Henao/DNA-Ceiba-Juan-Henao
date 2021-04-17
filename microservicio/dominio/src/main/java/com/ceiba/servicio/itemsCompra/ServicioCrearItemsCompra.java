@@ -55,14 +55,14 @@ public class ServicioCrearItemsCompra {
 	}
 
 	private void validarAnchoItemsCompra(ItemsCompra itemsCompra) {
-		if (itemsCompra.getAncho().compareTo(Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor()))
+		if (itemsCompra.getAncho().compareTo(Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ANCHO_ITEM).getValor()))
 				> BigDecimal.ZERO.intValue()) {
 			throw new ExcepcionMaximoAnchoItem(SOBREPASO_ANCHO_ITEM);
 		}
 	}
 	
 	private void validarLargoItemsCompra(ItemsCompra itemsCompra) {
-		if (itemsCompra.getLargo().compareTo(Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor()))
+		if (itemsCompra.getLargo().compareTo(Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_LARGO_ITEM).getValor()))
 				> BigDecimal.ZERO.intValue()) {
 			throw new ExcepcionMaximoLargoItem(SOBREPASO_LARGO_ITEM);
 		}

@@ -2,6 +2,7 @@ package com.ceiba.servicio.testdatabuilder;
 
 import java.time.LocalDateTime;
 
+import com.ceiba.comando.ComandoCliente;
 import com.ceiba.comando.ComandoCompra;
 import com.ceiba.modelo.util.EnumEstadoCompra;
 
@@ -24,6 +25,8 @@ public class ComandoCompraTestDataBuilder {
 	}
 
 	public ComandoCompra build() {
-		return new ComandoCompra(id, idCliente, total, fechaCompra, fechaEntrega,estadoCompra);
+		ComandoCliente comandoCliente = new ComandoCliente();
+		comandoCliente.setId(idCliente);
+		return new ComandoCompra(id, comandoCliente, total, fechaCompra, fechaEntrega,estadoCompra);
 	}
 }

@@ -17,7 +17,7 @@ import lombok.Setter;
 public class ComandoCompra{
 
     private Long id;
-	private Long idCliente;
+	private ComandoCliente idCliente;
     private Double total;
 	private LocalDateTime fechaCompra;
 	private LocalDateTime fechaEntrega;

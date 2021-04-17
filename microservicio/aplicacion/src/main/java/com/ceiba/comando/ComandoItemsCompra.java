@@ -16,7 +16,7 @@ public class ComandoItemsCompra{
 
     private Long id;
     private Long cantidad;
-	private Long idCompra;
+	private ComandoCompra idCompra;
 	private Double valor;
     private Double ancho;
     private Double largo;

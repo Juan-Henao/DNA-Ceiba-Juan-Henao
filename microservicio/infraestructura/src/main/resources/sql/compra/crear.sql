@@ -1,1 +1,2 @@
-insert into compra (idCliente, total,fechaCompra ,fechaEntrega,enumParametro) values (:idCliente, :total, :fechaCompra, :fechaEntrega,:enumParametro)
+insert into compra (idCliente, total,fechaCompra ,fechaEntrega,estadoCompra) 
+values (:idCliente, :total, :fechaCompra, :fechaEntrega,:estadoCompra)

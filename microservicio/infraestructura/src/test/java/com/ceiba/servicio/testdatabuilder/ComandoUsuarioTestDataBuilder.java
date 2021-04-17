@@ -1,7 +1,5 @@
 package com.ceiba.servicio.testdatabuilder;
 
-import java.util.UUID;
-
 import com.ceiba.comando.ComandoUsuario;
 
 public class ComandoUsuarioTestDataBuilder {
@@ -13,9 +11,9 @@ public class ComandoUsuarioTestDataBuilder {
 
 	public ComandoUsuarioTestDataBuilder() {
 
-		idRol = Long.parseLong(UUID.randomUUID().toString());
-		password = "12345";
-		username = "juanHenao";
+		idRol = 1L;
+		password = "1234";
+		username = "tester";
 
 	}
 

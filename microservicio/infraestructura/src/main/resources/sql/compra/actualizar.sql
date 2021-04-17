@@ -3,5 +3,5 @@ set idCliente = :idCliente,
 	total = :total,
 		fechaCompra = :fechaCompra,	
 	fechaEntrega = :fechaEntrega,
-	enumParametro = :enumParametro
+	estadoCompra = :estadoCompra
 where id = :id

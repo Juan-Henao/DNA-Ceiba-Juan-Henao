@@ -16,7 +16,7 @@ public class ItemsTestDataBuilder {
 
 	public ItemsTestDataBuilder() {
 
-		cantidad = 20L;
+		cantidad = 2L;
 		idCompra = 2L;
 		valor = 25000D;
 		ancho = 2.0D;
@@ -29,9 +29,18 @@ public class ItemsTestDataBuilder {
 		this.id = id;
 		return this;
 	}
+	public ItemsTestDataBuilder conCantidad(Long cantidad) {
+		this.cantidad = cantidad;
+		return this;
+	}
 
-	public ItemsTestDataBuilder conAnchoNoValido(Double ancho) {
+	public ItemsTestDataBuilder conAncho(Double ancho) {
 		this.ancho = ancho;
+		return this;
+	}
+	
+	public ItemsTestDataBuilder conLargo(Double largo) {
+		this.largo = largo;
 		return this;
 	}
 	

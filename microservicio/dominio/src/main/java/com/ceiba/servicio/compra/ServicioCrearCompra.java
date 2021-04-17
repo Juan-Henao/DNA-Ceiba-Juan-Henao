@@ -1,15 +1,17 @@
 package com.ceiba.servicio.compra;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
+import com.ceiba.dominio.excepcion.ExcepcionDiaFestivo;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionHorarioLaboral;
-import com.ceiba.dominio.excepcion.ExcepcionDiaFestivo;
 import com.ceiba.modelo.dto.DtoParametro;
 import com.ceiba.modelo.entidad.Compra;
 import com.ceiba.modelo.util.EnumParametro;
@@ -21,10 +23,6 @@ public class ServicioCrearCompra {
 	private static final String LA_COMPRA_YA_EXISTE_EN_EL_SISTEMA = "la Compra ya existe en el sistema";
 	private static final String LA_COMPRA_NO_SE_REALIZA_FESTIVO = "la Compra no se puede realizar ya que es Festivo";
 	private static final String EL_HORARIO_DE_LA_COMPRA_NO_VALIDO = "El horario de la compra no es valido";
-
-	private static final Double LA_COMPRA_ES_CERO = 0.0;
-	private static final Double RECARGO_FIN_DE_SEMANA = 0.10;
-
 
 	private final RepositorioCompra repositorioCompra;
 	private final DaoParametro daoParametro;
@@ -65,8 +63,13 @@ public class ServicioCrearCompra {
 	}
 
 	private void asignarRecargoFinDeSemana(Compra compra) {
-		if (compra.getTotal().equals(LA_COMPRA_ES_CERO)) {
-			compra.setTotal(compra.getTotal() + (compra.getTotal() * RECARGO_FIN_DE_SEMANA));
+
+		if (compra.getTotal()
+				.compareTo(Double.parseDouble(
+						daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor())) > BigDecimal.ZERO
+								.intValue()) {
+			compra.setTotal(compra.getTotal() + (compra.getTotal()
+					* Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.RECARGO_FIN_SEMANA).getValor())));
 		}
 
 	}
@@ -97,10 +100,8 @@ public class ServicioCrearCompra {
 	}
 
 	private int calcularDiaFechaEntrega() {
-		return (int) ((Math.random() * (Integer
-				.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA).getValor())
-				 - Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).getValor()))) 
-				+ Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).getValor()));
+		return ThreadLocalRandom.current().nextInt(
+				Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).getValor()),
+				Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA).getValor()));
 	}
-
 }
