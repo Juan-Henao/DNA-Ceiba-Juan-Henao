@@ -45,7 +45,7 @@ public class MapeoItemsCompra implements RowMapper<DtoItemsCompra>, MapperResult
 		String apellidos = resultSet.getString("apellidos_cliente");
 		String identificacion = resultSet.getString("identificacion_cliente");
 		String email = resultSet.getString("email_cliente");
-		LocalDateTime fechaCreacion = extraerLocalDateTime(resultSet, "fechaCreacion");
+		LocalDateTime fechaCreacion = extraerLocalDateTime(resultSet, "fecha_creacion_cliente");
 
 		return new DtoCliente(id, nombres, apellidos, identificacion, email, fechaCreacion);
 	}
