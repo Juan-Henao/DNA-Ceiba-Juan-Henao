@@ -21,7 +21,7 @@ public class ServicioActualizarCompra {
 
 	public void ejecutar(Compra compra) {
 		validarExistenciaPrevia(compra);
-		if (compra.getEstadoCompra().equals(EnumEstadoCompra.CANCELADO) ) {
+		if (compra.getEstadoCompra().equals(EnumEstadoCompra.CANCELADO.toString()) ) {
 			cancelarCompra(compra);
 		}
 		this.repositorioCompra.actualizar(compra);

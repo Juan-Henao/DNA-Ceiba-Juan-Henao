@@ -1,4 +1,4 @@
-/*
+
 package com.ceiba.controlador.compra;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -33,7 +33,8 @@ public class ComandoControladorCompraTest {
 	private MockMvc mocMvc;
 
 	@Test
-	public void crear() throws Exception { // arrange
+	public void crear() throws Exception { 
+		// arrange
 
 		ComandoCompra comandoCompra = new ComandoCompraTestDataBuilder().build();
 		// act - assert
@@ -43,18 +44,22 @@ public class ComandoControladorCompraTest {
 	}
 
 	@Test
-	public void actualizar() throws Exception { // arrange
+	public void actualizar() throws Exception { 
+		// arrange
 		Long id = 2L;
-		ComandoCompra compra = new ComandoCompraTestDataBuilder().build();// act - assert
+		ComandoCompra compra = new ComandoCompraTestDataBuilder().build();
+		// act - assert
 		mocMvc.perform(put("/compra/{id}", id).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(compra))).andExpect(status().isOk());
 	}
 
 	@Test
-	public void eliminar() throws Exception { // arrange|
-		Long id = 2L;// act - assert
+	public void eliminar() throws Exception { 
+		// arrange
+		Long id = 2L;
+		// act - assert
 		mocMvc.perform(
 				delete("/compra/{id}", id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}
-}*/
+}

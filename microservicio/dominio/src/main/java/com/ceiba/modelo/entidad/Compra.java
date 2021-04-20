@@ -1,14 +1,12 @@
 package com.ceiba.modelo.entidad;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 
 import java.time.LocalDateTime;
 
-import com.ceiba.modelo.util.EnumEstadoCompra;
-
-import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -27,10 +25,10 @@ public class Compra {
     private Double total;
 	private LocalDateTime fechaCompra;
 	private LocalDateTime fechaEntrega;
-	private EnumEstadoCompra estadoCompra;
+	private String estadoCompra;
 	
 	public Compra(Long id, Long idCliente, Double total, LocalDateTime fechaCompra,
-			LocalDateTime fechaEntrega, EnumEstadoCompra estadoCompra) {
+			LocalDateTime fechaEntrega, String estadoCompra) {
 		
         validarObligatorio(idCliente, SE_DEBE_INGRESAR_EL_CLIENTE);
         validarObligatorio(total,SE_DEBE_INGRESAR_EL_PRECIO_TOTAL_COMPRA);

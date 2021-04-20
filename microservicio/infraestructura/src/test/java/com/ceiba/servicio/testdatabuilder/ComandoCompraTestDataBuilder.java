@@ -13,20 +13,20 @@ public class ComandoCompraTestDataBuilder {
     private Double total;
 	private LocalDateTime fechaCompra;
 	private LocalDateTime fechaEntrega;
-	private EnumEstadoCompra estadoCompra;
+	private String estadoCompra;
 
 	public ComandoCompraTestDataBuilder() {
 
-		idCliente = 2L;
+		idCliente = 1L;
 		total = 250000D;
 		fechaCompra = LocalDateTime.now();
 		fechaEntrega = LocalDateTime.now().plusDays(6);
-		estadoCompra = EnumEstadoCompra.EN_PROCESO;
+		estadoCompra = EnumEstadoCompra.EN_PROCESO.toString();
 	}
 
 	public ComandoCompra build() {
 		ComandoCliente comandoCliente = new ComandoCliente();
 		comandoCliente.setId(idCliente);
-		return new ComandoCompra(id, comandoCliente, total, fechaCompra, fechaEntrega,estadoCompra);
+		return new ComandoCompra(id, idCliente, total, fechaCompra, fechaEntrega,estadoCompra);
 	}
 }

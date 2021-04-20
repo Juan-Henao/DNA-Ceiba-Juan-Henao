@@ -14,7 +14,7 @@ public class CompraTestDataBuilder {
     private Double total;
 	private LocalDateTime fechaCompra;
 	private LocalDateTime fechaEntrega;
-	private EnumEstadoCompra estadoCompra;
+	private String estadoCompra;
 	
     public CompraTestDataBuilder() {
     	id = 1L;
@@ -22,7 +22,7 @@ public class CompraTestDataBuilder {
     	total = 20000D;
     	fechaCompra = LocalDateTime.now();
     	fechaEntrega = fechaCompra.plusDays(6);
-    	estadoCompra = EnumEstadoCompra.EN_PROCESO;
+    	estadoCompra = EnumEstadoCompra.EN_PROCESO.toString();
     	       
     }
 
@@ -32,8 +32,13 @@ public class CompraTestDataBuilder {
         return this;
     }
     
-    public CompraTestDataBuilder conFechaCompra(LocalDateTime fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
+    public CompraTestDataBuilder conFechaCompra(LocalDateTime fechaCompra) {
+        this.fechaCompra = fechaCompra;
+        return this;
+    }
+    
+    public CompraTestDataBuilder conEstadoCompra(EnumEstadoCompra estadoCompra) {
+        this.estadoCompra = estadoCompra.toString();
         return this;
     }
 

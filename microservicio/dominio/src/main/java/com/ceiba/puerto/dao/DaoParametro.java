@@ -13,15 +13,7 @@ public interface DaoParametro {
 	 * @return los usuarios
 	 */
 	List<DtoParametro> listar();
-	
-	/**
-	 * Permite obtener un paramteros por su id
-	 * 
-	 * @param id
-	 * @return el arametro
-	 */
-	DtoParametro obtener(Long id);
-	
+		
 	/**
 	 * 
 	 * @param enumParametro

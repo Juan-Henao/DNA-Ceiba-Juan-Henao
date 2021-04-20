@@ -5,6 +5,8 @@ import com.ceiba.puerto.repositorio.RepositorioRol;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.testdatabuilder.RolTestDataBuilder;
 
+import static org.mockito.Mockito.verify;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -26,5 +28,18 @@ public class ServicioActualizarRolTest {
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioActualizarRol.ejecutar(rol), ExcepcionDuplicidad.class,
 				"El Rol ya existe en el sistema");
+	}
+	@Test
+	public void ejecutarTodoValido() {
+		// arrange
+
+		Rol rol = new RolTestDataBuilder().build();
+		RepositorioRol repositorioRol = Mockito.mock(RepositorioRol.class);
+		Mockito.when(repositorioRol.existe(Mockito.anyString())).thenReturn(false);
+		ServicioActualizarRol servicoActualizarRol = new ServicioActualizarRol(repositorioRol);
+		// act - assert
+		servicoActualizarRol.ejecutar(rol);
+		verify(repositorioRol).actualizar(rol);
+
 	}
 }

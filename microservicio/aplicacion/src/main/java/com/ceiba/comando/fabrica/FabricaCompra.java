@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class FabricaCompra {
 
 	public Compra crear(ComandoCompra comandoCompra) {
-		return new Compra(comandoCompra.getId(), comandoCompra.getIdCliente().getId(), comandoCompra.getTotal(),
+		return new Compra(comandoCompra.getId(), comandoCompra.getIdCliente(), comandoCompra.getTotal(),
 				comandoCompra.getFechaCompra(), comandoCompra.getFechaEntrega(),comandoCompra.getEstadoCompra());
 
 	}

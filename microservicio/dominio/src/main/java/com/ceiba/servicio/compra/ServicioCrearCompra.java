@@ -1,11 +1,7 @@
 package com.ceiba.servicio.compra;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -23,7 +19,8 @@ public class ServicioCrearCompra {
 	private static final String LA_COMPRA_YA_EXISTE_EN_EL_SISTEMA = "la Compra ya existe en el sistema";
 	private static final String LA_COMPRA_NO_SE_REALIZA_FESTIVO = "la Compra no se puede realizar ya que es Festivo";
 	private static final String EL_HORARIO_DE_LA_COMPRA_NO_VALIDO = "El horario de la compra no es valido";
-
+	private static final int SATURDAY = 6;
+	private static final int SUNDAY = 7;
 	private final RepositorioCompra repositorioCompra;
 	private final DaoParametro daoParametro;
 
@@ -54,23 +51,15 @@ public class ServicioCrearCompra {
 
 	private boolean verificarFinDeSemana(Compra compra) {
 
-		Calendar fechaCompraCalendar = Calendar.getInstance();
-		fechaCompraCalendar.setTime(Date
-				.from(compra.getFechaCompra().toLocalDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-		return fechaCompraCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-				|| fechaCompraCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
+		return compra.getFechaCompra().getDayOfWeek().getValue() == SATURDAY
+				|| compra.getFechaCompra().getDayOfWeek().getValue() == SUNDAY;
 
 	}
 
 	private void asignarRecargoFinDeSemana(Compra compra) {
 
-		if (compra.getTotal()
-				.compareTo(Double.parseDouble(
-						daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor())) > BigDecimal.ZERO
-								.intValue()) {
-			compra.setTotal(compra.getTotal() + (compra.getTotal()
-					* Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.RECARGO_FIN_SEMANA).getValor())));
-		}
+		compra.setTotal(compra.getTotal() + (compra.getTotal()
+				* Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.RECARGO_FIN_SEMANA).getValor())));
 
 	}
 

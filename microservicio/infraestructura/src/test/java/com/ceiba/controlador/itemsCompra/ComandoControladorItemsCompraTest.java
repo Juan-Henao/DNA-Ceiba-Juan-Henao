@@ -34,15 +34,15 @@ public class ComandoControladorItemsCompraTest {
 	@Autowired
 	private MockMvc mocMvc;
 
-//	@Test
-//	public void crear() throws Exception { // arrange
-//		ComandoItemsCompra comandoItemsCompra = new ComandoItemsCompraTestDataBuilder().build();
-//
-//		// act - assert
-//		mocMvc.perform(post("/itemsCompra").contentType(MediaType.APPLICATION_JSON)
-//				.content(objectMapper.writeValueAsString(comandoItemsCompra))).andExpect(status().isOk())
-//				.andExpect(content().json("{'valor': 2}"));
-//	}
+	@Test
+	public void crear() throws Exception { // arrange
+		ComandoItemsCompra comandoItemsCompra = new ComandoItemsCompraTestDataBuilder().build();
+
+		// act - assert
+		mocMvc.perform(post("/itemsCompra").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(comandoItemsCompra))).andExpect(status().isOk())
+				.andExpect(content().json("{'valor': 2}"));
+	}
 
 	@Test
 	public void actualizar() throws Exception { // arrange 

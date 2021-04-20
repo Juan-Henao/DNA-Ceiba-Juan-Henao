@@ -47,11 +47,4 @@ public interface RepositorioCompra {
 	 */
 	boolean existeExcluyendoId(Long id, LocalDateTime fechaCompra, Long idCliente);
 	
-	/**
-	 * Permite contar cuantas citas existen por dia
-	 * 
-	 * @param fechaCompra
-	 * @return cantidad de compras por dia
-	 */
-	Integer contarComprasPorDia(LocalDateTime fechaCompra);
 }

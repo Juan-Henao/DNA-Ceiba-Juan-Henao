@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/compra")
 @Api(tags = { "Controlador comando compra"})

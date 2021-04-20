@@ -30,6 +30,6 @@ public class ComandoItemsCompraTestDataBuilder {
 	public ComandoItemsCompra build() {
 		ComandoCompra comandoCompra = new ComandoCompra();
 		comandoCompra.setId(idCompra);
-		return new ComandoItemsCompra(id, cantidad, comandoCompra, valor, ancho, largo, fechaCreacion);
+		return new ComandoItemsCompra(id, cantidad, idCompra, valor, ancho, largo, fechaCreacion);
 	}
 }

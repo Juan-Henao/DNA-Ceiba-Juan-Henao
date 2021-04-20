@@ -75,15 +75,6 @@ public class RepositorioCompraMysql implements RepositorioCompra {
 
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExisteExcluyendoId,paramSource, Boolean.class);
 	}
-
-	@Override
-	public Integer contarComprasPorDia(LocalDateTime fechaCompra) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("fechaCompra", fechaCompra.toLocalDate().toString());
-        
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlcontarComprasPorDia, paramSource, Integer.class);
-	}	
-
 	
 
 }

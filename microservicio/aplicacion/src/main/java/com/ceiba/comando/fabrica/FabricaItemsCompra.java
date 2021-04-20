@@ -10,7 +10,7 @@ public class FabricaItemsCompra {
 	public ItemsCompra crear(ComandoItemsCompra comandoItemsCompra) {
 		return new ItemsCompra(comandoItemsCompra.getId(), comandoItemsCompra.getAncho(), comandoItemsCompra.getLargo(),
 				comandoItemsCompra.getValor(), comandoItemsCompra.getCantidad(), comandoItemsCompra.getFechaCreacion(),
-				comandoItemsCompra.getIdCompra().getId());
+				comandoItemsCompra.getIdCompra());
 
 	}
 

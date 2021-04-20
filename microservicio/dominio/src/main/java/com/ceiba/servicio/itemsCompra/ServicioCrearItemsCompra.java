@@ -70,7 +70,7 @@ public class ServicioCrearItemsCompra {
 	
 	private void aplicarDescuento(ItemsCompra itemsCompra) {
 		Double valorActual = itemsCompra.getValor();
-		Double valorDescuento = valorActual * Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO).getValor());
+		Double valorDescuento = valorActual * Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.DESCUENTO).getValor());
 		Double valorFinal = valorActual - valorDescuento ;
 		itemsCompra.setValor(valorFinal);
 		

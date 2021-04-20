@@ -1,4 +1,4 @@
-/*
+
 package com.ceiba.controlador.cliente;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -26,19 +26,21 @@ public class ConsultaControladorClienteTest {
 	@Autowired
 	private MockMvc mocMvc;
 
+	@Test
+	public void listar() throws Exception { // arrange
 
-	  @Test public void listar() throws Exception { // arrange
+		// act - assert
+		mocMvc.perform(get("/cliente").contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+				.andExpect(jsonPath("$", hasSize(1)))
+				.andExpect(jsonPath("$[0].nombres", is("Juan")));
+	}
 
-	  // act - assert
-	  mocMvc.perform(get("/cliente").contentType(MediaType.APPLICATION_JSON)).
-	  andExpect(status().isOk()) .andExpect(jsonPath("$",
-	  hasSize(1))).andExpect(jsonPath("$[0].nombres", is("test"))); }
+	@Test
+	public void obtener() throws Exception {
+		Long id = 1L;
+		mocMvc.perform(get("/cliente/{id}", id).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.nombres", is("Juan")));
+	}
 
-	  @Test public void obtener() throws Exception { Long id = 1L;
-	  mocMvc.perform(get("/cliente/{id}",
-	  id).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-	  .andExpect(jsonPath("$.nombres", is("test"))); }
-
-
-
-}*/
+}

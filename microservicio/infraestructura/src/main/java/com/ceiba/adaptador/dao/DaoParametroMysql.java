@@ -40,13 +40,6 @@ public class DaoParametroMysql implements DaoParametro {
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar, new MapeoParametro());
 	}
 
-	@Override
-	public DtoParametro obtener(Long id) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("id", id);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlObtener, paramSource, new MapeoParametro()).iterator().next();
-	}
-
 
 	@Override
 	public DtoParametro obtenerPorEnum(EnumParametro enumParametro) {

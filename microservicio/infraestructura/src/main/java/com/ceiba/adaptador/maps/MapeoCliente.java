@@ -19,7 +19,7 @@ public class MapeoCliente implements RowMapper<DtoCliente>, MapperResult {
     	 String apellidos = resultSet.getString("apellidos");
     	 String identificacion = resultSet.getString("identificacion");
     	 String email = resultSet.getString("email");
-    	 LocalDateTime fechaCreacion = extraerLocalDateTime(resultSet, "fechaCreacion");
+    	 LocalDateTime fechaCreacion = extraerLocalDateTime(resultSet, "fecha_creacion");
         
         return new DtoCliente(id, nombres, apellidos, identificacion, email, fechaCreacion);
     }

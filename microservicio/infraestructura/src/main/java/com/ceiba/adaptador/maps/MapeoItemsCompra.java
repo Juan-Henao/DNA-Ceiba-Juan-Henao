@@ -4,13 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import org.springframework.jdbc.core.RowMapper;
+
 import com.ceiba.infraestructura.jdbc.MapperResult;
 import com.ceiba.modelo.dto.DtoCliente;
 import com.ceiba.modelo.dto.DtoCompra;
 import com.ceiba.modelo.dto.DtoItemsCompra;
-import com.ceiba.modelo.util.EnumEstadoCompra;
-
-import org.springframework.jdbc.core.RowMapper;
 
 public class MapeoItemsCompra implements RowMapper<DtoItemsCompra>, MapperResult {
 
@@ -34,7 +33,7 @@ public class MapeoItemsCompra implements RowMapper<DtoItemsCompra>, MapperResult
 		Double total = resultSet.getDouble("total_compra");
 		LocalDateTime fechaCompra = extraerLocalDateTime(resultSet, "fecha_compra");
 		LocalDateTime fechaEntrega = extraerLocalDateTime(resultSet, "fecha_entrega");
-		EnumEstadoCompra estadoCompra = EnumEstadoCompra.valueOf(resultSet.getString("estado_compra"));
+		String estadoCompra = resultSet.getString("estado_compra");
 
 		return new DtoCompra(id, mapRowCliente(resultSet), total, fechaCompra, fechaEntrega,estadoCompra);
 	}

@@ -36,9 +36,9 @@ public class DaoClienteMysql implements DaoCliente {
 	}
 
 	@Override
-	public DtoCliente obtener(Long identificacion) {
+	public DtoCliente obtener(Long id) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("identificacion", identificacion);
+        paramSource.addValue("id", id);
 		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlObtener, paramSource, new MapeoCliente()).iterator().next();
 	}
 

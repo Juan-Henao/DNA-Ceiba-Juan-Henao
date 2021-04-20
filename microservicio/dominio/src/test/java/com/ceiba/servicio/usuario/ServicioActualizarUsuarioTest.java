@@ -5,6 +5,8 @@ import com.ceiba.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.testdatabuilder.UsuarioTestDataBuilder;
 
+import static org.mockito.Mockito.verify;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -26,5 +28,18 @@ public class ServicioActualizarUsuarioTest {
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioActualizarUsuario.ejecutar(usuario), ExcepcionDuplicidad.class,
 				"El usuario ya existe en el sistema");
+	}
+	@Test
+	public void ejecutarTodoValido() {
+		// arrange
+
+		Usuario usuario = new UsuarioTestDataBuilder().build();
+		RepositorioUsuario repositorioUsuario = Mockito.mock(RepositorioUsuario.class);
+		Mockito.when(repositorioUsuario.existe(Mockito.anyString())).thenReturn(false);
+		ServicioActualizarUsuario servicioActualizarUsuario = new ServicioActualizarUsuario(repositorioUsuario);
+		// act - assert
+		servicioActualizarUsuario.ejecutar(usuario);
+		verify(repositorioUsuario).actualizar(usuario);
+
 	}
 }

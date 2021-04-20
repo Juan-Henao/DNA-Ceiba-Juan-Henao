@@ -3,8 +3,6 @@ package com.ceiba.comando;
 
 import java.time.LocalDateTime;
 
-import com.ceiba.modelo.util.EnumEstadoCompra;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +15,10 @@ import lombok.Setter;
 public class ComandoCompra{
 
     private Long id;
-	private ComandoCliente idCliente;
+	private Long idCliente;
     private Double total;
 	private LocalDateTime fechaCompra;
 	private LocalDateTime fechaEntrega;
-	private EnumEstadoCompra estadoCompra;
+	private String estadoCompra;
 
 }

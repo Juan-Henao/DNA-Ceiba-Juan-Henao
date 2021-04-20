@@ -43,15 +43,4 @@ public class DaoItemsCompraMysql implements DaoItemsCompra {
 		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlObtener, paramSource, new MapeoItemsCompra()).iterator().next();
 	}
 
-
-	@Override
-	public List<DtoItemsCompra> listarPorCompra(Long idCompra) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("idCompra", idCompra);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlObtener, paramSource, new MapeoItemsCompra());
-	}
-
-
-
-
 }
