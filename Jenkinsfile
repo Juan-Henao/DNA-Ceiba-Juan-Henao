@@ -13,15 +13,15 @@ pipeline {
   //Una sección que define las herramientas “preinstaladas” en Jenkins
   tools {
     jdk 'JDK11_Centos' //Preinstalada en la Configuración del Master
-    gradle 'Gradle6.0.1_Centos' //Preinstalada en la Configuración del Master
+    gradle 'Gradle5.6_Centos' //Preinstalada en la Configuración del Master
   }
 
     //Aquí comienzan los “items” del Pipeline
     stages{
         stage('Checkout') {
             steps{
-                echo "------------>Checkout<------------"
-                checkout([
+            echo "------------>Checkout<------------"
+            checkout([
                 $class: 'GitSCM', 
                 branches: [[name: '*/develop']], 
                 doGenerateSubmoduleConfigurations: false, 
@@ -32,16 +32,12 @@ pipeline {
                 credentialsId: 'GitHub_juanhenao31', 
                 url:'https://github.com/Juan-Henao/DNA-Ceiba-Juan-Henao']]
                 ])
-		    sh 'gradle --b ./microservicio/build.gradle clean'
             }
         }
     
         stage('Compile & Unit Tests') {
             steps{
-			    
-		echo "------------>Compile project<------------"
-		sh 'gradle --b ./microservicio/build.gradle compileJava'
-		
+			
 		    echo "------------>Unit Tests<------------"
 		sh 'gradle --b ./microservicio/build.gradle test'
 		    
