@@ -3,7 +3,7 @@ package com.ceiba.testdatabuilder;
 import java.time.LocalDateTime;
 
 import com.ceiba.modelo.entidad.Compra;
-import com.ceiba.modelo.util.EnumEstadoCompra;
+import com.ceiba.modelo.util.EnumParametro;
 
 
 public class CompraTestDataBuilder {
@@ -22,7 +22,7 @@ public class CompraTestDataBuilder {
     	total = 20000D;
     	fechaCompra = LocalDateTime.now();
     	fechaEntrega = fechaCompra.plusDays(6);
-    	estadoCompra = EnumEstadoCompra.EN_PROCESO.toString();
+    	estadoCompra = EnumParametro.EN_PROCESO.toString();
     	       
     }
 
@@ -37,7 +37,7 @@ public class CompraTestDataBuilder {
         return this;
     }
     
-    public CompraTestDataBuilder conEstadoCompra(EnumEstadoCompra estadoCompra) {
+    public CompraTestDataBuilder conEstadoCompra(EnumParametro estadoCompra) {
         this.estadoCompra = estadoCompra.toString();
         return this;
     }

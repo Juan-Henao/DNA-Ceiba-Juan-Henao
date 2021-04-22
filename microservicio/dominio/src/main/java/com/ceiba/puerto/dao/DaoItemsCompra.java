@@ -20,4 +20,9 @@ public interface DaoItemsCompra {
 	 */
     DtoItemsCompra obtener(Long id);
 	
+    /**
+     * Permite listar items de compra dada una compra
+     * @return los Crsitales
+     */
+    List<DtoItemsCompra>  obtenerPorCompra(Long idCompra);
 }

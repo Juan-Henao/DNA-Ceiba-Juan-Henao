@@ -12,8 +12,11 @@ import com.ceiba.dominio.excepcion.ExcepcionMaximoAnchoItem;
 import com.ceiba.dominio.excepcion.ExcepcionMaximoLargoItem;
 import com.ceiba.modelo.entidad.ItemsCompra;
 import com.ceiba.modelo.util.EnumParametro;
+import com.ceiba.puerto.dao.DaoCompra;
 import com.ceiba.puerto.dao.DaoParametro;
 import com.ceiba.puerto.repositorio.RepositorioItemsCompra;
+import com.ceiba.servicio.compra.ServicioActualizarCompra;
+import com.ceiba.testdatabuilder.DtoCompraTestDataBuilder;
 import com.ceiba.testdatabuilder.DtoParametroTestDataBuilder;
 import com.ceiba.testdatabuilder.ItemsTestDataBuilder;
 
@@ -28,9 +31,11 @@ public class ServicioCrearItemsCompraTest {
 
 		Mockito.when(repositorioItemsCompra.existe(Mockito.any(), Mockito.anyLong())).thenReturn(true);
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
+		DaoCompra daoCompra = Mockito.mock(DaoCompra.class);
+		ServicioActualizarCompra servicioActualizarCompra = Mockito.mock(ServicioActualizarCompra.class);
 
 		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra,
-				daoParametro);
+				daoParametro, servicioActualizarCompra, daoCompra);
 
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioCrearItemsCompra.ejecutar(itemsCompra), ExcepcionDuplicidad.class,
@@ -49,11 +54,14 @@ public class ServicioCrearItemsCompraTest {
 
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
 
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES))
-				.thenReturn(new DtoParametroTestDataBuilder().conValor("10").conEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).build());
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("10").conEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).build());
+
+		DaoCompra daoCompra = Mockito.mock(DaoCompra.class);
+		ServicioActualizarCompra servicioActualizarCompra = Mockito.mock(ServicioActualizarCompra.class);
 
 		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra,
-				daoParametro);
+				daoParametro, servicioActualizarCompra, daoCompra);
 
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioCrearItemsCompra.ejecutar(itemsCompra), ExcepcionExcesoItems.class,
@@ -72,11 +80,14 @@ public class ServicioCrearItemsCompraTest {
 
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
 
-		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any()))
-				.thenReturn(new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any())).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+
+		DaoCompra daoCompra = Mockito.mock(DaoCompra.class);
+		ServicioActualizarCompra servicioActualizarCompra = Mockito.mock(ServicioActualizarCompra.class);
 
 		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra,
-				daoParametro);
+				daoParametro, servicioActualizarCompra, daoCompra);
 
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioCrearItemsCompra.ejecutar(itemsCompra), ExcepcionMaximoAnchoItem.class,
@@ -94,86 +105,100 @@ public class ServicioCrearItemsCompraTest {
 		Mockito.when(repositorioItemsCompra.existe(Mockito.any(), Mockito.anyLong())).thenReturn(false);
 
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
-		
-		
-		
-		
-		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any()))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("6").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
 
-		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any()))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
+		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any())).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("6").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+
+		Mockito.when(daoParametro.obtenerPorEnum(Mockito.any())).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
+
+		DaoCompra daoCompra = Mockito.mock(DaoCompra.class);
+		ServicioActualizarCompra servicioActualizarCompra = Mockito.mock(ServicioActualizarCompra.class);
 
 		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra,
-				daoParametro);
+				daoParametro, servicioActualizarCompra, daoCompra);
 
 		// act - assert
 		BasePrueba.assertThrows(() -> servicioCrearItemsCompra.ejecutar(itemsCompra), ExcepcionMaximoLargoItem.class,
 				"Exceso en el largo del items de compra");
 	}
-	
+
 	@Test
 	public void ejecutarTodoValido() {
 		// arrange
 
-		ItemsCompra itemsCompra = new ItemsTestDataBuilder().conLargo(2D).conAncho(2D).conCantidad(25L).build();	
+		ItemsCompra itemsCompra = new ItemsTestDataBuilder().conLargo(2D).conAncho(2D).conCantidad(25L).build();
 		RepositorioItemsCompra repositorioItemsCompra = Mockito.mock(RepositorioItemsCompra.class);
-		
+
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
 
 		Mockito.when(repositorioItemsCompra.existe(Mockito.any(), Mockito.anyLong())).thenReturn(false);
 
-		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra, daoParametro);
+		DaoCompra daoCompra = Mockito.mock(DaoCompra.class);
 		
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("100").conEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).build());
+		Mockito.when(daoCompra.obtener(1L)).thenReturn(new DtoCompraTestDataBuilder().build());
+				
+		ServicioActualizarCompra servicioActualizarCompra = Mockito.mock(ServicioActualizarCompra.class);
+
+		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra,
+				daoParametro, servicioActualizarCompra, daoCompra);
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("100").conEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).build());
 
 		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("20").conEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO).build());
-		
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DESCUENTO))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("0.2").conEnum(EnumParametro.DESCUENTO).build());
-		
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ANCHO_ITEM))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("6").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+				.thenReturn(new DtoParametroTestDataBuilder().conValor("20")
+						.conEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO).build());
 
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_LARGO_ITEM))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
-		
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DESCUENTO))
+				.thenReturn(new DtoParametroTestDataBuilder().conValor("0.2").conEnum(EnumParametro.DESCUENTO).build());
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ANCHO_ITEM)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("6").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_LARGO_ITEM)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
+
 		// act - assert
 		servicioCrearItemsCompra.ejecutar(itemsCompra);
 		verify(repositorioItemsCompra).crear(itemsCompra);
 
 	}
-	
+
 	@Test
 	public void ejecutarTodoValidoNoDCTO() {
 		// arrange
 
-		ItemsCompra itemsCompra = new ItemsTestDataBuilder().conLargo(2D).conAncho(2D).conCantidad(25L).build();	
+		ItemsCompra itemsCompra = new ItemsTestDataBuilder().conLargo(2D).conAncho(2D).conCantidad(25L).build();
 		RepositorioItemsCompra repositorioItemsCompra = Mockito.mock(RepositorioItemsCompra.class);
-		
+
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
 
 		Mockito.when(repositorioItemsCompra.existe(Mockito.any(), Mockito.anyLong())).thenReturn(false);
 
-		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra, daoParametro);
+DaoCompra daoCompra = Mockito.mock(DaoCompra.class);
 		
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("100").conEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).build());
+		Mockito.when(daoCompra.obtener(1L)).thenReturn(new DtoCompraTestDataBuilder().build());		ServicioActualizarCompra servicioActualizarCompra = Mockito.mock(ServicioActualizarCompra.class);
+
+		ServicioCrearItemsCompra servicioCrearItemsCompra = new ServicioCrearItemsCompra(repositorioItemsCompra,
+				daoParametro, servicioActualizarCompra, daoCompra);
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("100").conEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).build());
 
 		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("40").conEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO).build());
-		
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DESCUENTO))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("0.2").conEnum(EnumParametro.DESCUENTO).build());
-		
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ANCHO_ITEM))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("6").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+				.thenReturn(new DtoParametroTestDataBuilder().conValor("40")
+						.conEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO).build());
 
-		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_LARGO_ITEM))
-		.thenReturn(new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
-		
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DESCUENTO))
+				.thenReturn(new DtoParametroTestDataBuilder().conValor("0.2").conEnum(EnumParametro.DESCUENTO).build());
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ANCHO_ITEM)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("6").conEnum(EnumParametro.MAXIMO_ANCHO_ITEM).build());
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_LARGO_ITEM)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
+
 		// act - assert
 		servicioCrearItemsCompra.ejecutar(itemsCompra);
 		verify(repositorioItemsCompra).crear(itemsCompra);

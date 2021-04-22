@@ -6,10 +6,14 @@ import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionExcesoItems;
 import com.ceiba.dominio.excepcion.ExcepcionMaximoAnchoItem;
 import com.ceiba.dominio.excepcion.ExcepcionMaximoLargoItem;
+import com.ceiba.modelo.dto.DtoCompra;
+import com.ceiba.modelo.entidad.Compra;
 import com.ceiba.modelo.entidad.ItemsCompra;
 import com.ceiba.modelo.util.EnumParametro;
+import com.ceiba.puerto.dao.DaoCompra;
 import com.ceiba.puerto.dao.DaoParametro;
 import com.ceiba.puerto.repositorio.RepositorioItemsCompra;
+import com.ceiba.servicio.compra.ServicioActualizarCompra;
 
 public class ServicioActualizarItemsCompra {
 
@@ -20,10 +24,15 @@ public class ServicioActualizarItemsCompra {
 
 	private final RepositorioItemsCompra repositorioItemsCompra;
 	private final DaoParametro daoParametro;
-
-	public ServicioActualizarItemsCompra(RepositorioItemsCompra repositorioItemsCompra, DaoParametro daoParametro) {
+	private final ServicioActualizarCompra servicioActualizarCompra;
+	private final DaoCompra daoCompra;
+	
+	public ServicioActualizarItemsCompra(RepositorioItemsCompra repositorioItemsCompra, DaoParametro daoParametro,
+			ServicioActualizarCompra servicioActualizarCompra, DaoCompra daoCompra) {
 		this.repositorioItemsCompra = repositorioItemsCompra;
 		this.daoParametro = daoParametro;
+		this.servicioActualizarCompra = servicioActualizarCompra;
+		this.daoCompra = daoCompra;
 	}
 
 	public void ejecutar(ItemsCompra itemsCompra) {
@@ -34,9 +43,20 @@ public class ServicioActualizarItemsCompra {
 		if (itemsCompra.getCantidad() > Long.parseLong(daoParametro.obtenerPorEnum(EnumParametro.ITEMS_MINIMOS_DESCUENTO).getValor())) {
 			aplicarDescuento(itemsCompra);
 		}
+		cambiarValorCompra(itemsCompra);
+
 		this.repositorioItemsCompra.actualizar(itemsCompra);
 	}
 
+	private void cambiarValorCompra(ItemsCompra itemsCompra) {
+		DtoCompra dtoCompra = daoCompra.obtener(itemsCompra.getIdCompra());
+		dtoCompra.setTotal(dtoCompra.getTotal()+itemsCompra.getValor());
+		
+		servicioActualizarCompra.ejecutar(
+				new Compra(dtoCompra.getId(),dtoCompra.getIdCliente().getId(),dtoCompra.getTotal(),dtoCompra.getFechaCompra(),dtoCompra.getFechaEntrega(),dtoCompra.getEstadoCompra() ));
+				
+	}
+	
 	private void validarExistenciaPrevia(ItemsCompra itemsCompra) {
 		boolean existe = this.repositorioItemsCompra.existeExcluyendoId(itemsCompra.getId(),
 				itemsCompra.getFechaCreacion(), itemsCompra.getIdCompra());

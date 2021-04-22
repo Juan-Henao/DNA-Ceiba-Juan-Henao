@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.ceiba.comando.ComandoCliente;
 import com.ceiba.comando.ComandoCompra;
-import com.ceiba.modelo.util.EnumEstadoCompra;
+import com.ceiba.modelo.util.EnumParametro;
 
 public class ComandoCompraTestDataBuilder {
 
@@ -21,7 +21,7 @@ public class ComandoCompraTestDataBuilder {
 		total = 250000D;
 		fechaCompra = LocalDateTime.now();
 		fechaEntrega = LocalDateTime.now().plusDays(6);
-		estadoCompra = EnumEstadoCompra.EN_PROCESO.toString();
+		estadoCompra = EnumParametro.EN_PROCESO.toString();
 	}
 
 	public ComandoCompra build() {

@@ -2,17 +2,21 @@ package com.ceiba.servicio.compra;
 
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.ceiba.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
+import com.ceiba.modelo.dto.DtoItemsCompra;
 import com.ceiba.modelo.entidad.Compra;
-import com.ceiba.modelo.util.EnumEstadoCompra;
 import com.ceiba.modelo.util.EnumParametro;
+import com.ceiba.puerto.dao.DaoItemsCompra;
 import com.ceiba.puerto.dao.DaoParametro;
 import com.ceiba.puerto.repositorio.RepositorioCompra;
 import com.ceiba.testdatabuilder.CompraTestDataBuilder;
+import com.ceiba.testdatabuilder.DtoItemsCompraTestDataBuilder;
 import com.ceiba.testdatabuilder.DtoParametroTestDataBuilder;
 
 public class ServicioActualizarCompraTest {
@@ -36,16 +40,35 @@ public class ServicioActualizarCompraTest {
 				"La Compra ya existe en el sistema");
 	}
 
+	@SuppressWarnings("serial")
 	@Test
 	public void ejecutarTodoValido() {
 		// arrange
 
-		Compra compra = new CompraTestDataBuilder().conId(1L).conEstadoCompra(EnumEstadoCompra.CANCELADO).build();
+		Compra compra = new CompraTestDataBuilder().conId(1L).conEstadoCompra(EnumParametro.CANCELADO).build();
 		RepositorioCompra repositorioCompra = Mockito.mock(RepositorioCompra.class);
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
 
 		Mockito.when(repositorioCompra.existe(Mockito.any(), Mockito.anyLong())).thenReturn(false);
 
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("2").conEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).build());
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("3").conEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA).build());
+		
+		DaoItemsCompra daoItemsCompra = Mockito.mock(DaoItemsCompra.class);
+
+		Mockito.when(daoItemsCompra.obtener(1L)).thenReturn(new DtoItemsCompraTestDataBuilder().conValor(10D).build());
+
+		Mockito.when(daoItemsCompra.obtenerPorCompra(1L)).thenReturn(new ArrayList<DtoItemsCompra>() {
+			{
+				add(new DtoItemsCompraTestDataBuilder()
+						.conValor(5000D)
+						.build());
+			}
+		});
+		
 		ServicioActualizarCompra servicioActualizarCompra = new ServicioActualizarCompra(repositorioCompra,
 				daoParametro);
 		
@@ -62,11 +85,18 @@ public class ServicioActualizarCompraTest {
 	public void ejecutarTodoValidoNoCancelado() {
 		// arrange
 
-		Compra compra = new CompraTestDataBuilder().conId(1L).conEstadoCompra(EnumEstadoCompra.EN_PROCESO).build();
+		Compra compra = new CompraTestDataBuilder().conId(1L).conEstadoCompra(EnumParametro.EN_PROCESO).build();
 		RepositorioCompra repositorioCompra = Mockito.mock(RepositorioCompra.class);
 		DaoParametro daoParametro = Mockito.mock(DaoParametro.class);
 
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("2").conEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).build());
+
+		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA)).thenReturn(
+				new DtoParametroTestDataBuilder().conValor("3").conEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA).build());
+		
 		Mockito.when(repositorioCompra.existe(Mockito.any(), Mockito.anyLong())).thenReturn(false);
+
 
 		ServicioActualizarCompra servicioActualizarCompra = new ServicioActualizarCompra(repositorioCompra,
 				daoParametro);

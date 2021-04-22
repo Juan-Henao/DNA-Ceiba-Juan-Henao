@@ -1,8 +1,9 @@
 package com.ceiba.servicio.compra;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.modelo.entidad.Compra;
-import com.ceiba.modelo.util.EnumEstadoCompra;
 import com.ceiba.modelo.util.EnumParametro;
 import com.ceiba.puerto.dao.DaoParametro;
 import com.ceiba.puerto.repositorio.RepositorioCompra;
@@ -21,9 +22,12 @@ public class ServicioActualizarCompra {
 
 	public void ejecutar(Compra compra) {
 		validarExistenciaPrevia(compra);
-		if (compra.getEstadoCompra().equals(EnumEstadoCompra.CANCELADO.toString()) ) {
+
+		if (compra.getEstadoCompra().equals(EnumParametro.CANCELADO.toString()) ) {
 			cancelarCompra(compra);
 		}
+		asignarFechaEntrega(compra);
+
 		this.repositorioCompra.actualizar(compra);
 	}
 
@@ -35,9 +39,18 @@ public class ServicioActualizarCompra {
 		}
 	}
 
-
 	private void cancelarCompra(Compra compra) {
 		String valorMulta = daoParametro.obtenerPorEnum(EnumParametro.MULTA_CANCELACION_COMPRA).getValor();
 		compra.setTotal(Double.parseDouble(valorMulta));
+	}
+	private void asignarFechaEntrega(Compra compra) {
+		int cantidadDias = calcularDiaFechaEntrega();
+		compra.setFechaEntrega(compra.getFechaCompra().plusDays(cantidadDias));
+	}
+
+	private int calcularDiaFechaEntrega() {
+		return ThreadLocalRandom.current().nextInt(
+				Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MINIMOS_FECHA_COMPRA).getValor()),
+				Integer.parseInt(daoParametro.obtenerPorEnum(EnumParametro.DIAS_MAXIMOS_FECHA_COMPRA).getValor()));
 	}
 }

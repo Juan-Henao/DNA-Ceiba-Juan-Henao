@@ -3,6 +3,9 @@ package com.ceiba.modelo.util;
 
 public enum EnumParametro {
 	
+	EN_PROCESO,
+	PAGADO,
+	CANCELADO,
 	MONOLITICOS,
 	LAMINADOS,
 	DOBLE_ACRISTALAMIENTO,

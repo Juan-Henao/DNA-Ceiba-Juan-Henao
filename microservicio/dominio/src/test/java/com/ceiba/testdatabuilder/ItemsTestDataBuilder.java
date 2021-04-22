@@ -17,7 +17,7 @@ public class ItemsTestDataBuilder {
 	public ItemsTestDataBuilder() {
 
 		cantidad = 2L;
-		idCompra = 2L;
+		idCompra = 1L;
 		valor = 25000D;
 		ancho = 2.0D;
 		largo = 2.0D;
