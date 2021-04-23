@@ -31,27 +31,27 @@ public class ComandoControladorRolTest {
 	@Autowired
 	private MockMvc mocMvc;
 
-	@Test
-	public void crear() throws Exception {
-		// arrange
-		ComandoRol comandoRol = new ComandoRolTestDataBuilder().build();
+//	@Test
+//	public void crear() throws Exception {
+//		// arrange
+//		ComandoRol comandoRol = new ComandoRolTestDataBuilder().build();
+//
+//		// act - assert
+//		mocMvc.perform(post("/rol").contentType(MediaType.APPLICATION_JSON)
+//				.content(objectMapper.writeValueAsString(comandoRol))).andExpect(status().isOk())
+//				.andExpect(content().json("{'valor': 2}"));
+//	}
 
-		// act - assert
-		mocMvc.perform(post("/rol").contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(comandoRol))).andExpect(status().isOk())
-				.andExpect(content().json("{'valor': 2}"));
-	}
-
-	@Test
-	public void actualizar() throws Exception {
-		// arrange
-		Long id = 2L;
-		ComandoRol rol = new ComandoRolTestDataBuilder().build();
-
-		// act - assert
-		mocMvc.perform(put("/rol/{id}", id).contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(rol))).andExpect(status().isOk());
-	}
+//	@Test
+//	public void actualizar() throws Exception {
+//		// arrange
+//		Long id = 2L;
+//		ComandoRol rol = new ComandoRolTestDataBuilder().build();
+//
+//		// act - assert
+//		mocMvc.perform(put("/rol/{id}", id).contentType(MediaType.APPLICATION_JSON)
+//				.content(objectMapper.writeValueAsString(rol))).andExpect(status().isOk());
+//	}
 
 	@Test
 	public void eliminar() throws Exception {
