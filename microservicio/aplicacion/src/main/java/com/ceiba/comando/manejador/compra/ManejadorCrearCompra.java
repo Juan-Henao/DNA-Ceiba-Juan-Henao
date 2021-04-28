@@ -1,13 +1,13 @@
 package com.ceiba.comando.manejador.compra;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.ComandoRespuesta;
 import com.ceiba.comando.ComandoCompra;
 import com.ceiba.comando.fabrica.FabricaCompra;
 import com.ceiba.manejador.ManejadorComandoRespuesta;
 import com.ceiba.modelo.entidad.Compra;
 import com.ceiba.servicio.compra.ServicioCrearCompra;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class ManejadorCrearCompra implements ManejadorComandoRespuesta<ComandoCompra, ComandoRespuesta<Long>> {

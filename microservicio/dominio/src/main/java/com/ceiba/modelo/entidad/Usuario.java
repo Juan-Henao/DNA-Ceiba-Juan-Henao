@@ -1,8 +1,8 @@
 package com.ceiba.modelo.entidad;
 
 
-import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 import static com.ceiba.dominio.ValidadorArgumento.validarLongitud;
+import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 
 import lombok.Getter;
 

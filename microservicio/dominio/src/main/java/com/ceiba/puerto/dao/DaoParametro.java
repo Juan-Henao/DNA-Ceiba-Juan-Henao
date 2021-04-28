@@ -1,9 +1,9 @@
 package com.ceiba.puerto.dao;
 
+import java.util.List;
+
 import com.ceiba.modelo.dto.DtoParametro;
 import com.ceiba.modelo.util.EnumParametro;
-
-import java.util.List;
 
 public interface DaoParametro {
 

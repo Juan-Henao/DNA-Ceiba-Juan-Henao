@@ -1,12 +1,12 @@
 package com.ceiba.modelo.entidad;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
 
 import java.time.LocalDateTime;
 
-import static com.ceiba.dominio.ValidadorArgumento.validarObligatorio;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Getter

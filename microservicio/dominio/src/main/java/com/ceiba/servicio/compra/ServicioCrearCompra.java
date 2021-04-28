@@ -1,6 +1,5 @@
 package com.ceiba.servicio.compra;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -9,11 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.ceiba.dominio.excepcion.ExcepcionDiaFestivo;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.dominio.excepcion.ExcepcionHorarioLaboral;
-import com.ceiba.modelo.dto.DtoItemsCompra;
 import com.ceiba.modelo.dto.DtoParametro;
 import com.ceiba.modelo.entidad.Compra;
 import com.ceiba.modelo.util.EnumParametro;
-import com.ceiba.puerto.dao.DaoItemsCompra;
 import com.ceiba.puerto.dao.DaoParametro;
 import com.ceiba.puerto.repositorio.RepositorioCompra;
 
@@ -26,12 +23,10 @@ public class ServicioCrearCompra {
 	private static final int SUNDAY = 7;
 	private final RepositorioCompra repositorioCompra;
 	private final DaoParametro daoParametro;
-	private final DaoItemsCompra daoItemsCompra;
 
-	public ServicioCrearCompra(RepositorioCompra repositorioCompra, DaoParametro daoParametro, DaoItemsCompra daoItemsCompra) {
+	public ServicioCrearCompra(RepositorioCompra repositorioCompra, DaoParametro daoParametro) {
 		this.repositorioCompra = repositorioCompra;
 		this.daoParametro = daoParametro;
-		this.daoItemsCompra = daoItemsCompra;
 	}
 
 	public Long ejecutar(Compra compra) {
@@ -39,24 +34,12 @@ public class ServicioCrearCompra {
 
 		validarDiaFestivo(compra, daoParametro.listarPorEnum(EnumParametro.FESTIVOS));
 
-		validarHorarioHabil(compra);
-		calcularValorCompra(compra , daoItemsCompra.obtenerPorCompra(compra.getId()));
+		validarHorarioHabil(compra.getFechaCompra().getHour());
 		if (verificarFinDeSemana(compra)) {
 			asignarRecargoFinDeSemana(compra);
 		}
 		asignarFechaEntrega(compra);
 		return this.repositorioCompra.crear(compra);
-	}
-
-	private void calcularValorCompra(Compra compra, List<DtoItemsCompra> ListDtoItemsCompra) {
-		
-		Double valor = BigDecimal.ZERO.doubleValue();
-		for (DtoItemsCompra dtoItemsCompra : ListDtoItemsCompra) {
-			
-			valor += dtoItemsCompra.getValor();
-
-		}
-		compra.setTotal(valor);		
 	}
 
 	private void validarExistenciaPrevia(Compra compra) {
@@ -90,11 +73,12 @@ public class ServicioCrearCompra {
 		}
 	}
 
-	private void validarHorarioHabil(Compra compra) {
+	private void validarHorarioHabil(Integer horaCompra) {
 
-		if (compra.getFechaCompra().getHour() < Integer
+		if (horaCompra < Integer
 				.parseInt(daoParametro.obtenerPorEnum(EnumParametro.HORA_ENTRADA).getValor())
-				|| compra.getFechaCompra().getHour() > Integer
+				
+				|| horaCompra > Integer
 						.parseInt(daoParametro.obtenerPorEnum(EnumParametro.HORA_SALIDA).getValor())) {
 			throw new ExcepcionHorarioLaboral(EL_HORARIO_DE_LA_COMPRA_NO_VALIDO);
 		}

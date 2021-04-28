@@ -159,6 +159,13 @@ public class ServicioCrearItemsCompraTest {
 		Mockito.when(daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_LARGO_ITEM)).thenReturn(
 				new DtoParametroTestDataBuilder().conValor("5").conEnum(EnumParametro.MAXIMO_LARGO_ITEM).build());
 
+		Double valorActual = itemsCompra.getValor();
+		Double valorDescuento = valorActual
+				* Double.parseDouble(daoParametro.obtenerPorEnum(EnumParametro.DESCUENTO).getValor());
+		Double valorFinal = valorActual - valorDescuento;
+		itemsCompra.setValor(valorFinal);
+		
+		
 		// act - assert
 		servicioCrearItemsCompra.ejecutar(itemsCompra);
 		verify(repositorioItemsCompra).crear(itemsCompra);

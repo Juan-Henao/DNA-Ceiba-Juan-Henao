@@ -1,10 +1,10 @@
 
 package com.ceiba.comando.manejador.rol;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.manejador.ManejadorComando;
 import com.ceiba.servicio.rol.ServicioEliminarRol;
-
-import org.springframework.stereotype.Component;
 
 
 @Component

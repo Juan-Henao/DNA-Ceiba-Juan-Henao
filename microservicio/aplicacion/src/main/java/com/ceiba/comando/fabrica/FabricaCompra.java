@@ -1,8 +1,9 @@
 package com.ceiba.comando.fabrica;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.comando.ComandoCompra;
 import com.ceiba.modelo.entidad.Compra;
-import org.springframework.stereotype.Component;
 
 @Component
 public class FabricaCompra {
