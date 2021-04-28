@@ -1,16 +1,15 @@
 package com.ceiba.servicio.usuario;
 
-import com.ceiba.modelo.entidad.Usuario;
-import com.ceiba.puerto.repositorio.RepositorioUsuario;
-import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
-import com.ceiba.testdatabuilder.UsuarioTestDataBuilder;
-
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.ceiba.BasePrueba;
+import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
+import com.ceiba.modelo.entidad.Usuario;
+import com.ceiba.puerto.repositorio.RepositorioUsuario;
+import com.ceiba.testdatabuilder.UsuarioTestDataBuilder;
 
 public class ServicioActualizarUsuarioTest {
 

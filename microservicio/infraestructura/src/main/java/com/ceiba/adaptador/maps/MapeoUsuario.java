@@ -3,10 +3,10 @@ package com.ceiba.adaptador.maps;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.jdbc.core.RowMapper;
+
 import com.ceiba.infraestructura.jdbc.MapperResult;
 import com.ceiba.modelo.dto.DtoUsuario;
-
-import org.springframework.jdbc.core.RowMapper;
 
 public class MapeoUsuario implements RowMapper<DtoUsuario>, MapperResult {
 

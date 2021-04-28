@@ -1,8 +1,8 @@
 package com.ceiba.puerto.dao;
 
-import com.ceiba.modelo.dto.DtoCliente;
-
 import java.util.List;
+
+import com.ceiba.modelo.dto.DtoCliente;
 
 public interface DaoCliente {
 

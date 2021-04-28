@@ -1,10 +1,10 @@
 
 package com.ceiba.comando.manejador.cliente;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.manejador.ManejadorComando;
 import com.ceiba.servicio.cliente.ServicioEliminarCliente;
-
-import org.springframework.stereotype.Component;
 
 
 @Component

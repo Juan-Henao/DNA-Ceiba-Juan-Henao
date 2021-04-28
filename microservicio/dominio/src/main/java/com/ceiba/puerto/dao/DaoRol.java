@@ -1,8 +1,8 @@
 package com.ceiba.puerto.dao;
 
-import com.ceiba.modelo.dto.DtoRol;
-
 import java.util.List;
+
+import com.ceiba.modelo.dto.DtoRol;
 
 public interface DaoRol {
 

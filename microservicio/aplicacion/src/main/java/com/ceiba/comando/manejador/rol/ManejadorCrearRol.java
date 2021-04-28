@@ -1,13 +1,13 @@
 package com.ceiba.comando.manejador.rol;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.ComandoRespuesta;
 import com.ceiba.comando.ComandoRol;
 import com.ceiba.comando.fabrica.FabricaRol;
 import com.ceiba.manejador.ManejadorComandoRespuesta;
 import com.ceiba.modelo.entidad.Rol;
 import com.ceiba.servicio.rol.ServicioCrearRol;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class ManejadorCrearRol implements ManejadorComandoRespuesta<ComandoRol, ComandoRespuesta<Long>> {

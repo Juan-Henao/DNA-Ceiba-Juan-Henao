@@ -1,12 +1,12 @@
 package com.ceiba.comando.manejador.usuario;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.comando.ComandoUsuario;
 import com.ceiba.comando.fabrica.FabricaUsuario;
 import com.ceiba.manejador.ManejadorComando;
 import com.ceiba.modelo.entidad.Usuario;
 import com.ceiba.servicio.usuario.ServicioActualizarUsuario;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class ManejadorActualizarUsuario implements ManejadorComando<ComandoUsuario> {

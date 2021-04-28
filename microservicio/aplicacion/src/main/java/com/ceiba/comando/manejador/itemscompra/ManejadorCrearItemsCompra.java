@@ -1,13 +1,13 @@
 package com.ceiba.comando.manejador.itemscompra;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.ComandoRespuesta;
 import com.ceiba.comando.ComandoItemsCompra;
 import com.ceiba.comando.fabrica.FabricaItemsCompra;
 import com.ceiba.manejador.ManejadorComandoRespuesta;
 import com.ceiba.modelo.entidad.ItemsCompra;
 import com.ceiba.servicio.itemsCompra.ServicioCrearItemsCompra;
-
-import org.springframework.stereotype.Component;
 
 
 @Component

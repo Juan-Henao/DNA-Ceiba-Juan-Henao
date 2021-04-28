@@ -1,8 +1,9 @@
 package com.ceiba.comando.manejador.usuario;
 
+import org.springframework.stereotype.Component;
+
 import com.ceiba.manejador.ManejadorComando;
 import com.ceiba.servicio.usuario.ServicioEliminarUsuario;
-import org.springframework.stereotype.Component;
 
 
 @Component

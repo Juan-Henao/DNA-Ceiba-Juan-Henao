@@ -1,9 +1,9 @@
 package com.ceiba.modelo.entidad;
 
 
-import lombok.Getter;
-
 import com.ceiba.modelo.util.EnumParametro;
+
+import lombok.Getter;
 
 @Getter
 public class Parametro {

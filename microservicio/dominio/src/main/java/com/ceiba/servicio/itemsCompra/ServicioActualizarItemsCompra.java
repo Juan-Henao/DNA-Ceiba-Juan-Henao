@@ -67,6 +67,7 @@ public class ServicioActualizarItemsCompra {
 
 	private void validarCantidadSolicitada(ItemsCompra itemsCompra) {
 
+	
 		if (itemsCompra.getCantidad()
 				.compareTo(Long.parseLong(
 						daoParametro.obtenerPorEnum(EnumParametro.MAXIMO_ITEMS_POSIBLES).getValor())) > BigDecimal.ZERO

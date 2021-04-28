@@ -1,16 +1,15 @@
 package com.ceiba.servicio.rol;
 
-import com.ceiba.modelo.entidad.Rol;
-import com.ceiba.puerto.repositorio.RepositorioRol;
-import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
-import com.ceiba.testdatabuilder.RolTestDataBuilder;
-
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.ceiba.BasePrueba;
+import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
+import com.ceiba.modelo.entidad.Rol;
+import com.ceiba.puerto.repositorio.RepositorioRol;
+import com.ceiba.testdatabuilder.RolTestDataBuilder;
 
 public class ServicioActualizarRolTest {
 
